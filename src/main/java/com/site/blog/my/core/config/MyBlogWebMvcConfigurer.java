@@ -24,6 +24,9 @@ public class MyBlogWebMvcConfigurer implements WebMvcConfigurer {
                 excludePathPatterns("/admin/plugins/**");
     }
 
+    /**
+     * 资源映射路径
+     */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/upload/**").
