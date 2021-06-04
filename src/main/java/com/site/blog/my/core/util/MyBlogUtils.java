@@ -17,6 +17,11 @@ public class MyBlogUtils {
         return effectiveURI;
     }
 
+    /**
+     * 净化
+     * @param value
+     * @return
+     */
     public static String cleanString(String value) {
         if (StringUtils.isEmpty(value)) {
             return "";

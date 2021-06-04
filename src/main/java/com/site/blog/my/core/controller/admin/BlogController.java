@@ -112,6 +112,7 @@ public class BlogController {
         if (StringUtils.isEmpty(blogCoverImage)) {
             return ResultGenerator.genFailResult("封面图不能为空");
         }
+
         Blog blog = new Blog();
         blog.setBlogTitle(blogTitle);
         blog.setBlogSubUrl(blogSubUrl);

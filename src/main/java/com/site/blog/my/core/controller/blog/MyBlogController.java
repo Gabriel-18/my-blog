@@ -50,12 +50,14 @@ public class MyBlogController extends BaseController {
      */
     @GetMapping({"/page/{pageNum}"})
     public String page(HttpServletRequest request, @PathVariable("pageNum") int pageNum) {
+
         PageResult blogPageResult = blogService.getBlogsForIndexPage(pageNum);
         if (blogPageResult == null) {
             return "error/error_404";
         }
         Map<String, String> configs = configService.getAllConfigs();
         request.setAttribute("blogPageResult", blogPageResult);
+        // 根据需要来查询
         request.setAttribute("newBlogs", blogService.getBlogListForIndexPage(1));
         request.setAttribute("hotBlogs", blogService.getBlogListForIndexPage(0));
         request.setAttribute("hotTags", tagService.getBlogTagCountForIndex());
@@ -175,7 +177,8 @@ public class MyBlogController extends BaseController {
 
     /**
      * 搜索列表页
-     *
+     * 标题 分类 标签
+     * 三个角度模糊查询
      * @return
      */
     @GetMapping({"/search/{keyword}/{page}"})
@@ -190,7 +193,6 @@ public class MyBlogController extends BaseController {
         request.setAttribute("hotTags", tagService.getBlogTagCountForIndex());
         Map<String, String> configs = configService.getAllConfigs();
         request.setAttribute("configurations", configs);
-//        return "blog/" + theme + "/list";
         return super.render("/list", configs);
     }
 

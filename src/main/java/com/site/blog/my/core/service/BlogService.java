@@ -43,7 +43,8 @@ public interface BlogService {
 
     /**
      * 首页侧边栏数据列表
-     * 0-点击最多 1-最新发布
+     * 0-点击最多
+     * 1-最新发布
      *
      * @param type
      * @return

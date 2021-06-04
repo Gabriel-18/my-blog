@@ -72,6 +72,7 @@ public class BlogServiceImpl implements BlogService {
                     //不存在就新增
                     BlogTag tempTag = new BlogTag();
                     tempTag.setTagName(tags[i]);
+                    tempTag.setCreateTime(new Date());
                     tagListForInsert.add(tempTag);
                 } else {
                     allTagsList.add(tag);
@@ -89,7 +90,9 @@ public class BlogServiceImpl implements BlogService {
                 BlogTagRelation blogTagRelation = new BlogTagRelation();
                 blogTagRelation.setBlogId(blog.getBlogId());
                 blogTagRelation.setTagId(tag.getTagId());
+                blogTagRelation.setCreateTime(new Date());
                 blogTagRelations.add(blogTagRelation);
+
             }
             if (blogTagRelationMapper.batchInsert(blogTagRelations) > 0) {
                 return "success";
@@ -108,7 +111,7 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public Boolean deleteBatch(Integer[] ids) {
-        return blogMapper.deleteBatch(ids) > 0;
+        return blogMapper.deleteBatch(ids) > 0 && blogTagRelationMapper.deleteByBlogIdBatch(ids);
     }
 
     @Override
@@ -233,6 +236,8 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public PageResult getBlogsPageByTag(String tagName, int page) {
         if (PatternUtil.validKeyword(tagName)) {
+            // 通过tagname 去查找tag这是个非常简单的操作
+            // 扎到tag后可以获取id
             BlogTag tag = tagMapper.selectByTagName(tagName);
             if (tag != null && page > 0) {
                 Map param = new HashMap();

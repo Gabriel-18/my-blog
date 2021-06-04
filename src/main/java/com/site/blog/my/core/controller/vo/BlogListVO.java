@@ -5,6 +5,10 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
+
+/**
+ *  在外面博客需要展示的细节
+ */
 @Data
 public class BlogListVO implements Serializable {
 
